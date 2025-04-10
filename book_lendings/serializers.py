@@ -1,8 +1,8 @@
 from rest_framework import serializers
-from .models import BookLending
+from .models import BookLending, BookCopy
 
 
-class BookLendingListSerializer(serializers.ModelSerializer):
+class BookLendingSerializer(serializers.ModelSerializer):
     class Meta:
         model = BookLending
         fields = (
@@ -16,6 +16,8 @@ class BookLendingListSerializer(serializers.ModelSerializer):
             'status',
         )
 
+
+class BookLendingListSerializer(BookLendingSerializer):
     def to_representation(self, instance):
         rep = super().to_representation(instance)
         book_copy = instance.book_copy
