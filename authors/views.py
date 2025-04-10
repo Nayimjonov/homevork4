@@ -11,7 +11,7 @@ class AuthorListCreateView(generics.ListCreateAPIView):
     pagination_class = AuthorListPagination
 
 
-class AuthorRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
+class AuthorRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Author.objects.all()
     serializer_class = AuthorSerializer
 

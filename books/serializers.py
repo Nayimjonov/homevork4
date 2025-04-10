@@ -9,13 +9,15 @@ class BookAuthorSerializer(serializers.ModelSerializer):
         model = Author
         fields = ('id', 'first_name', 'last_name')
 
-
 class BookGenreSerializer(serializers.ModelSerializer):
     class Meta:
         model = Genre
         fields = ('id', 'name')
 
+
 class BookSerializer(serializers.ModelSerializer):
+    copies_available = serializers.SerializerMethodField()
+
     class Meta:
         model = Book
         fields = (
@@ -30,6 +32,9 @@ class BookSerializer(serializers.ModelSerializer):
             'language',
             'copies_available'
         )
+
+    def get_copies_available(self, obj):
+        return obj.book_copies.filter(is_available=True).count()
 
     def to_representation(self, instance):
         rep = super().to_representation(instance)

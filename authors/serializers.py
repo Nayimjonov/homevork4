@@ -7,7 +7,15 @@ class AuthorSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Author
-        fields = ('id', 'first_name', 'last_name', 'bio', 'birth_date', 'nationality', 'books_count')
+        fields = (
+            'id',
+            'first_name',
+            'last_name',
+            'bio',
+            'birth_date',
+            'nationality',
+            'books_count'
+        )
 
     def get_books_count(self, instance):
         return instance.books.count()
