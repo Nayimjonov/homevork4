@@ -10,3 +10,6 @@ class BookCopyListCreateView(generics.ListCreateAPIView):
     pagination_class = BookCopyPagination
 
 
+class BookCopyRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = BookCopy.objects.all()
+    serializer_class = BookCopySerializer
