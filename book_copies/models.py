@@ -1,3 +1,5 @@
+from math import trunc
+
 from django.db import models
 from books.models import Book
 
@@ -12,7 +14,7 @@ class BookCopy(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='book_copies')
     inventory_number = models.CharField(max_length=50, unique=True)
     condition = models.CharField(max_length=10, choices=CONDITION_CHOICES, default=CONDITION_CHOICES[0][0])
-    is_available = models.BooleanField()
+    is_available = models.BooleanField(default=True)
     added_date = models.DateTimeField(auto_now_add=True)
 
     class Meta:

@@ -9,10 +9,12 @@ class BookSerializer(serializers.ModelSerializer):
         fields = ('id', 'title', 'isbn')
 
 class BookCopySerializer(serializers.ModelSerializer):
+    is_available = serializers.BooleanField(read_only=True)
+
     class Meta:
         model = BookCopy
         fields = ('id', 'book', 'inventory_number', 'condition', 'is_available', 'added_date')
-
+        readonly_field = 'is_available'
 
     def to_representation(self, instance):
         rep = super().to_representation(instance)
