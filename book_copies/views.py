@@ -1,3 +1,12 @@
-from django.shortcuts import render
+from rest_framework import generics
+from .models import BookCopy
+from .serializers import BookCopySerializer
+from .pagination import BookCopyPagination
 
-# Create your views here.
+
+class BookCopyListCreateView(generics.ListCreateAPIView):
+    queryset = BookCopy.objects.all()
+    serializer_class = BookCopySerializer
+    pagination_class = BookCopyPagination
+
+
