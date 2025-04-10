@@ -15,6 +15,24 @@ class BookGenreSerializer(serializers.ModelSerializer):
         fields = ('id', 'name')
 
 
+class BookCopySerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    inventory_number = serializers.CharField(max_length=50)
+    condition = serializers.CharField(max_length=10)
+    is_available = serializers.BooleanField()
+    added_date = serializers.DateTimeField()
+    current_lending = serializers.SerializerMethodField()
+
+    def get_current_lending(self, obj):
+        lending = obj.book_lendings.filter(status='active', returned_date__isnull=True).first()
+        if lending:
+            return {
+                "id": lending.id,
+                "borrower_name": lending.borrower_name,
+                "due_date": lending.due_date,
+            }
+        return None
+
 class BookSerializer(serializers.ModelSerializer):
     copies_available = serializers.SerializerMethodField()
 
